@@ -1,7 +1,32 @@
-- img: "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg"
-- img:
-    src: "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg"
-    style:
-      border-radius: "50%"
-      border: "5px solid #ff4400"
-      width: "150px"
+- H1: Element Only
+
+- H2: 
+     content: Element with Style and Content
+     style: 
+            background-color: yellow
+
+- Home Page:
+       - H1: Element with Style and Content Inside Page
+       - H2: 
+               content: Hello
+               style:
+                       background-color: red
+
+- Home Page:
+     content:
+          - h1: Element with Style & Content Inside Page Content
+          - h2:
+                  content: Hello
+                  style: 
+                         background-color: red
+
+- Home Page:
+     style:
+         background-color: "#f0f0f0"
+         padding: "20px"
+     content:
+          - h1: Page with Style and Content
+          - h2:
+                  content: Hello
+                  style: 
+                         background-color: red
