@@ -1,0 +1,9 @@
+- h1: Hello!  Welcome to Outline
+- h1:
+    content: This is a styled text
+    style:
+      font size: 40px
+      color: "#ff4400"
+      text-transform: uppercase
+- p: This is a paragraph generated from Outline.
+- p: Edit the site.otl file to instantly generate html file
