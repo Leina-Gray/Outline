@@ -1,32 +1,14 @@
-- H1: Element Only
-
-- H2: 
-     content: Element with Style and Content
-     style: 
-            background-color: yellow
-
-- Home Page:
-       - H1: Element with Style and Content Inside Page
-       - H2: 
-               content: Hello
-               style:
-                       background-color: red
-
-- Home Page:
-     content:
-          - h1: Element with Style & Content Inside Page Content
-          - h2:
-                  content: Hello
-                  style: 
-                         background-color: red
-
 - Home Page:
      style:
          background-color: "#f0f0f0"
-         padding: "20px"
+         padding: "40px"
+         h1:
+            color: "#ff4400"
+            text-transform: uppercase
+         h2:
+            color: "blue"
+            text-decoration: underline
      content:
-          - h1: Page with Style and Content
-          - h2:
-                  content: Hello
-                  style: 
-                         background-color: red
+          - h1: This header is red because of the parent style!
+          - h2: This subheader is blue and underlined!
+          - p: I'm just a normal paragraph.
