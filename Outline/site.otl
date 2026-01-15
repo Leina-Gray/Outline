@@ -1,14 +1,66 @@
 - Home Page:
-     style:
-         background-color: "#f0f0f0"
-         padding: "40px"
-         h1:
-            color: "#ff4400"
-            text-transform: uppercase
-         h2:
-            color: "blue"
-            text-decoration: underline
-     content:
-          - h1: This header is red because of the parent style!
-          - h2: This subheader is blue and underlined!
-          - p: I'm just a normal paragraph.
+      theme:
+             dictionary:
+                    colors:
+                          black: &black "#1a1a1a"
+                          blue: &blue "#3b82f6"
+                          violet: &violet "#8b5cf6"
+                          white: &white "#ffffff"
+                          red: &red "#ef4444"
+                          pink: &pink "#ff69b4"
+                    font_sizes:
+                          xs: &xs "0.75rem"
+                          small: &small "0.875rem"
+                          base: &base "1rem"
+                          large: &large "1.5rem"
+                          xl: &xl "2.5rem"
+                          2xl: &xxl "3.5rem"
+                    weights:
+                          bold: &bold "700"
+                          normal: &normal "400"
+
+             color palette:
+                   primary: &primary "#8b5cf6"
+                   secondary: *blue
+                   neutral:
+                         - *black
+                         - *white
+                   accent: *pink
+
+             typography:
+                    h1: 
+                        color: *violet
+                        font-size: *xl
+                        font-weight: *bold
+                    h2: 
+                        color: *blue
+                        font-size: *large
+                    p: &p_style
+                        color: *black
+                        font-size: *base
+                    link:
+                        color: *pink
+
+             library:
+                     elements:
+                          button: 
+                               <<: *p_style
+                               background: *primary
+                               color: *white
+                               padding: "10px 20px"
+                               border-radius: "5px"
+                     components: {}
+                     section: {}
+                     page: {}
+
+      content:
+             - h1: "Welcome to my Themed Site"
+             - p: "This paragraph uses the base font size and black color from the dictionary."
+             - button: 
+                  content: "Click Me"
+                  style:
+                      background-color: *violet
+                      color: *white
+                      padding: "10px 20px"
+                      border: "none"
+                      border-radius: "5px"
