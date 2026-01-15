@@ -3,39 +3,50 @@ import os
 import time
 
 def process_elements(elements, css_rules_list):
-    """This function 'recurses' - it calls itself to handle nested tags."""
     html_buffer = ""
     
     for i, entry in enumerate(elements):
         tag = list(entry.keys())[0]
         value = entry[tag]
-        # Unique ID for this specific element's style
         el_id = f"otl-{tag}-{i}-{id(entry) % 1000}" 
         
         content_html = ""
         style_data = {}
+        attributes = "" # New: for things like src="..."
 
-        if isinstance(value, list):
-            # Direct nesting: - div: [ - h1: hey ]
+        if tag == "img":
+            # Image logic
+            if isinstance(value, str):
+                attributes = f' src="{value}"'
+            elif isinstance(value, dict):
+                src = value.get('src') or value.get('url') or ""
+                attributes = f' src="{src}"'
+                style_data = value.get('style', {})
+            html_buffer += f"<img class='{el_id}'{attributes}>\n"
+        
+        elif isinstance(value, list):
             content_html = process_elements(value, css_rules_list)
         elif isinstance(value, dict):
-            # Complex nesting: - div: { children: [...], style: {...} }
             style_data = value.get('style', {})
             children = value.get('children', [])
             content_html = process_elements(children, css_rules_list) if children else value.get('content', '')
         else:
-            # Simple text: - h1: hey
             content_html = str(value)
 
+        # Handle normal tags (non-images)
+        if tag != "img":
+            if style_data:
+                html_buffer += f"<{tag} class='{el_id}'>{content_html}</{tag}>\n"
+            else:
+                html_buffer += f"<{tag}>{content_html}</{tag}>\n"
+
+        # Always process styles if they exist
         if style_data:
             css_rule = f".{el_id} {{\n"
             for prop, val in style_data.items():
                 css_rule += f"  {prop.replace(' ', '-')}: {val};\n"
             css_rule += "}"
             css_rules_list.append(css_rule)
-            html_buffer += f"<{tag} class='{el_id}'>{content_html}</{tag}>\n"
-        else:
-            html_buffer += f"<{tag}>{content_html}</{tag}>\n"
             
     return html_buffer
 

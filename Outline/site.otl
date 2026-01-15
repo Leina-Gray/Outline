@@ -1,14 +1,7 @@
-- div:
+- img: "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg"
+- img:
+    src: "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg"
     style:
-      background: "white"
-      padding: "20px"
-      border-radius: "10px"
-      box-shadow: "0 4px 10px rgba(0,0,0,0.1)"
-    children:
-      - h1: "I am inside a card!"
-      - p: "This is nested content."
-      - ul:
-          children:
-            - li: "First item"
-            - li: "Second item"
-            - li: "Third item"
+      border-radius: "50%"
+      border: "5px solid #ff4400"
+      width: "150px"
