@@ -2,61 +2,68 @@ import yaml
 import os
 import time
 
-def compile_outline():
-    # 1. Load the Template
-    try:
-        with open("template.html", "r") as f:
-            template = f.read()
-    except FileNotFoundError:
-        print("Error: template.html not found!")
-        return
-
-    # 2. Load the .otl Content
-    try:
-        with open("site.otl", "r") as f:
-            data = yaml.safe_load(f)
-    except Exception as e:
-        print(f"YAML Error: {e}")
-        return
-
-    html_elements = []
-    css_rules = []
-
-    # 3. Process tags
-    for i, entry in enumerate(data or []):
+def process_elements(elements, css_rules_list):
+    """This function 'recurses' - it calls itself to handle nested tags."""
+    html_buffer = ""
+    
+    for i, entry in enumerate(elements):
         tag = list(entry.keys())[0]
         value = entry[tag]
-        class_name = f"el-{i}"
+        # Unique ID for this specific element's style
+        el_id = f"otl-{tag}-{i}-{id(entry) % 1000}" 
         
-        if isinstance(value, str):
-            html_elements.append(f"<{tag}>{value}</{tag}>")
+        content_html = ""
+        style_data = {}
+
+        if isinstance(value, list):
+            # Direct nesting: - div: [ - h1: hey ]
+            content_html = process_elements(value, css_rules_list)
         elif isinstance(value, dict):
-            content = value.get('content', '')
-            style = value.get('style', {})
-            html_elements.append(f"<{tag} class='{class_name}'>{content}</{tag}>")
-            
-            css_rule = f".{class_name} {{\n"
-            for prop, val in style.items():
+            # Complex nesting: - div: { children: [...], style: {...} }
+            style_data = value.get('style', {})
+            children = value.get('children', [])
+            content_html = process_elements(children, css_rules_list) if children else value.get('content', '')
+        else:
+            # Simple text: - h1: hey
+            content_html = str(value)
+
+        if style_data:
+            css_rule = f".{el_id} {{\n"
+            for prop, val in style_data.items():
                 css_rule += f"  {prop.replace(' ', '-')}: {val};\n"
             css_rule += "}"
-            css_rules.append(css_rule)
+            css_rules_list.append(css_rule)
+            html_buffer += f"<{tag} class='{el_id}'>{content_html}</{tag}>\n"
+        else:
+            html_buffer += f"<{tag}>{content_html}</{tag}>\n"
+            
+    return html_buffer
 
-    # 4. Inject into Template
-    final_output = template.replace("{{ CSS }}", "\n".join(css_rules))
-    final_output = final_output.replace("{{ CONTENT }}", "\n        ".join(html_elements))
+def compile_outline():
+    try:
+        with open("template.html", "r") as f: template_str = f.read()
+        with open("site.otl", "r") as f: data = yaml.safe_load(f)
+        
+        css_rules = []
+        # We start the recursion here
+        body_content = process_elements(data or [], css_rules)
+        
+        output = template_str.replace("{{ CSS }}", "\n".join(css_rules))
+        output = output.replace("{{ CONTENT }}", body_content)
 
-    with open("index.html", "w") as f:
-        f.write(final_output)
-    print("Compiled successfully!")
+        with open("index.html", "w") as f: f.write(output)
+        print("Done! Site updated.")
+    except Exception as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
+    print("Outline is watching for changes... (Press Ctrl+C to stop)")
     last_mtime = 0
     while True:
         try:
-            current_mtime = os.path.getmtime("site.otl")
-            if current_mtime != last_mtime:
+            mtime = os.path.getmtime("site.otl")
+            if mtime != last_mtime:
                 compile_outline()
-                last_mtime = current_mtime
-        except FileNotFoundError:
-            pass
+                last_mtime = mtime
+        except: pass
         time.sleep(1)
