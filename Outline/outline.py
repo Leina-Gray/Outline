@@ -2,7 +2,7 @@ import yaml
 import os
 import time
 import re
-import markdown # Added markdown support
+import markdown
 
 def clean_value(val):
     """Removes noise words like 'font', 'color', and commas."""
@@ -12,9 +12,8 @@ def clean_value(val):
     return pattern.sub('', val).strip()
 
 def render_markdown(text):
-    """Converts markdown strings to HTML."""
+    """Converts markdown strings to HTML with UTF-8 support."""
     if not isinstance(text, str): return text
-    # We use 'extras' to support things like tables or task lists if needed
     return markdown.markdown(text, extensions=['extra'])
 
 def process_elements(elements, css_rules_list, global_library=None):
@@ -39,7 +38,6 @@ def process_elements(elements, css_rules_list, global_library=None):
             style_data.update(global_library[tag])
 
         if isinstance(value, str):
-            # Render markdown for simple strings
             content_html = render_markdown(value)
         elif isinstance(value, list):
             content_html = process_elements(value, css_rules_list, global_library)
@@ -52,7 +50,6 @@ def process_elements(elements, css_rules_list, global_library=None):
             if isinstance(raw_content, list):
                 content_html = process_elements(raw_content, css_rules_list, local_library)
             else:
-                # Render markdown for dictionary content
                 content_html = render_markdown(str(raw_content)) if raw_content else ""
             
             style_data.update(value.get('style', {}))
@@ -79,8 +76,11 @@ def process_elements(elements, css_rules_list, global_library=None):
 
 def compile_outline():
     try:
-        with open("template.html", "r") as f: template_str = f.read()
-        with open("site.otl", "r") as f: data = yaml.safe_load(f)
+        # Added encoding="utf-8" to all file operations
+        with open("template.html", "r", encoding="utf-8") as f: 
+            template_str = f.read()
+        with open("site.otl", "r", encoding="utf-8") as f: 
+            data = yaml.safe_load(f)
         
         global_library = {}
         for item in (data or []):
@@ -93,8 +93,10 @@ def compile_outline():
         body_content = process_elements(data or [], css_rules, global_library)
         
         output = template_str.replace("{{ CSS }}", "\n".join(css_rules)).replace("{{ CONTENT }}", body_content)
-        with open("index.html", "w") as f: f.write(output)
-        print("Done! Markdown rendered.")
+        
+        with open("index.html", "w", encoding="utf-8") as f: 
+            f.write(output)
+        print("Done! Markdown rendered with UTF-8 support.")
     except Exception as e:
         print(f"Error: {e}")
 

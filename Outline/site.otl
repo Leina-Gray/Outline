@@ -2,59 +2,89 @@
       theme:
              dictionary:
                     colors:
-                          primary: &primary "#8b5cf6"
-                          gray: &gray "#666666"
+                          brand: &brand_blue "#0ea5e9"
+                          brand_dark: &brand_dark "#0369a1"
+                          brand_light: &brand_light "#e0f2fe"
+                          danger: &danger_red "#ef4444"
+                          bg_page: &bg_page "#f8fafc"
+                    font_sizes:
+                          title: &title_size "50px"
+             
              library:
                      elements:
                           button: 
-                               background: *primary
+                               background: *brand_blue
                                color: white
-                               padding: "10px 20px"
+                               padding: "12px 24px"
                                border-radius: "8px"
+                               border: "none"
+                               font-weight: "bold"
+
+      style:
+          background-color: *bg_page
+          padding: "40px"
+          # Smart Reach-Inside Styling
+          h1:
+             color: *brand_dark
+          h2:
+             color: *brand_blue
 
       content:
-             - h1: "The Ultimate Markdown Showcase"
+             - h1: "📝 Welcome to Outline!"
              - p: |
-                 # Heading 1
-                 ## Heading 2
-                 ### Heading 3
-                 #### Heading 4
-                 
-                 ---
-                 
-                 **Bold Text**, *Italic Text*, and ***Bold Italic***.
-                 Use ~~strikethrough~~ for deletions and `inline code` for technical bits.
-                 
-                 1. First ordered item
-                 2. Second ordered item
-                    * Nested unordered item
-                    * Another nested item
-                 3. Third ordered item
-                 
-                 - [ ] Unfinished task
-                 - [x] Completed task
-                 
-                 [Clickable Link](https://google.com)
-                 
-                 ![Image Alt Text](https://via.placeholder.com/300x100)
-                 
-                 > "This is a blockquote containing a **bold** word."
-                 
-                 Below is a syntax-highlighted code block:
-                 ```python
-                 def hello_world():
-                     print("Hello from Markdown!")
-                 ```
+                 Outline is a **simple language** that turns your ideas into a website *instantly*. 
+                 You write in a list format, and Outline handles the heavy lifting.
+
              - section:
                   style:
+                      background: "white"
                       padding: "20px"
-                      border: "1px solid #ddd"
-                  content: |
-                      | Feature | Status | Type |
-                      | :--- | :---: | ---: |
-                      | Tables | Working | Advanced |
-                      | Alignment | Center | Right |
-                      | Footnotes | Yes[^1] | Extra |
-                      
-                      [^1]: This is the footnote content at the bottom.
-             - button: "**Click Me** to Learn *More*"
+                      border-radius: "15px"
+                      margin: "20px 0"
+                      border: "1px solid #e2e8f0"
+                  content:
+                      - h2: "1. The Basics & Markdown"
+                      - p: "This paragraph contains **Bold**, *Italics*, and a [Link](https://google.com)."
+                      - p: |
+                          ### Markdown List Test:
+                          - Simple to learn
+                          - Powerful to use
+                          - `Code blocks supported`
+
+             - box:
+                  style:
+                      background: *brand_light
+                      padding: "30px"
+                      border-left: f"5px solid {*brand_blue}"
+                      display: "block"
+                      border-radius: "0 12px 12px 0"
+                  content:
+                      - h2: "2. Nesting & Custom Style"
+                      - h1:
+                          content: "I am a Large Custom Title"
+                          style:
+                              font size: *title_size
+                              color: *brand_dark
+                      - p: "I am inside a nested sky-blue box container with high contrast text."
+
+             - section:
+                  style:
+                      display: "flex"
+                      gap: "20px"
+                      margin-top: "20px"
+                  content:
+                      - button: "**Click Me** (Library Style)"
+                      - button:
+                          content: "Secondary Action"
+                          style:
+                              background: "white"
+                              color: *brand_blue
+                              border: f"2px solid {*brand_blue}"
+
+             - footer:
+                  style:
+                      margin-top: "50px"
+                      border-top: "1px solid #e2e8f0"
+                      padding-top: "20px"
+                      color: "#64748b"
+                  content: "Happy Building! 🚀"

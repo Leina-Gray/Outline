@@ -15,85 +15,89 @@
         }
         
         /* This is where Python will inject the custom styles */
-        .otl-section-2-240 {
+        .otl-section-2-696 {
+  background: white;
   padding: 20px;
-  border: 1px solid #ddd;
+  border-radius: 15px;
+  margin: 20px 0;
+  border: 1px solid #e2e8f0;
 }
-.otl-button-3-296 {
-  background: #8b5cf6;
+.otl-h1-1-280 {
+  font-size: 50px;
+  color: #0369a1;
+}
+.otl-box-3-768 {
+  background: #e0f2fe;
+  padding: 30px;
+  border-left: f"5px solid {*brand_blue}";
+  display: block;
+  border-radius: 0 12px 12px 0;
+}
+.otl-button-0-224 {
+  background: #0ea5e9;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 8px;
+  border: none;
+  font-weight: bold;
+}
+.otl-button-1-288 {
+  background: white;
+  color: #0ea5e9;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: f"2px solid {*brand_blue}";
+  font-weight: bold;
+}
+.otl-section-4-312 {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.otl-footer-5-960 {
+  margin-top: 50px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+  color: #64748b;
+}
+.otl-section-0-472 h1 {
+  color: #0369a1;
+}
+.otl-section-0-472 h2 {
+  color: #0ea5e9;
+}
+.otl-section-0-472 {
+  background-color: #f8fafc;
+  padding: 40px;
 }
     </style>
 </head>
 <body>
     <main class="container">
-        <section><h1><p>The Ultimate Markdown Showcase</p></h1>
-<p><h1>Heading 1</h1>
-<h2>Heading 2</h2>
-<h3>Heading 3</h3>
-<h4>Heading 4</h4>
-<hr />
-<p><strong>Bold Text</strong>, <em>Italic Text</em>, and <strong><em>Bold Italic</em></strong>.
-Use ~~strikethrough~~ for deletions and <code>inline code</code> for technical bits.</p>
-<ol>
-<li>First ordered item</li>
-<li>Second ordered item</li>
-<li>Nested unordered item</li>
-<li>Another nested item</li>
-<li>
-<p>Third ordered item</p>
-</li>
-<li>
-<p>[ ] Unfinished task</p>
-</li>
-<li>[x] Completed task</li>
-</ol>
-<p><a href="https://google.com">Clickable Link</a></p>
-<p><img alt="Image Alt Text" src="https://via.placeholder.com/300x100" /></p>
-<blockquote>
-<p>"This is a blockquote containing a <strong>bold</strong> word."</p>
-</blockquote>
-<p>Below is a syntax-highlighted code block:</p>
-<pre><code class="language-python">def hello_world():
-    print(&quot;Hello from Markdown!&quot;)
-</code></pre></p>
-<section class='otl-section-2-240'><table>
-<thead>
-<tr>
-<th style="text-align: left;">Feature</th>
-<th style="text-align: center;">Status</th>
-<th style="text-align: right;">Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Tables</td>
-<td style="text-align: center;">Working</td>
-<td style="text-align: right;">Advanced</td>
-</tr>
-<tr>
-<td style="text-align: left;">Alignment</td>
-<td style="text-align: center;">Center</td>
-<td style="text-align: right;">Right</td>
-</tr>
-<tr>
-<td style="text-align: left;">Footnotes</td>
-<td style="text-align: center;">Yes<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></td>
-<td style="text-align: right;">Extra</td>
-</tr>
-</tbody>
-</table>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>This is the footnote content at the bottom.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div></section>
-<button class='otl-button-3-296'><p><strong>Click Me</strong> to Learn <em>More</em></p></button>
+        <section class='otl-section-0-472'><h1><p>📝 Welcome to Outline!</p></h1>
+<p><p>Outline is a <strong>simple language</strong> that turns your ideas into a website <em>instantly</em>. 
+You write in a list format, and Outline handles the heavy lifting.</p></p>
+<section class='otl-section-2-696'><h2><ol>
+<li>The Basics &amp; Markdown</li>
+</ol></h2>
+<p><p>This paragraph contains <strong>Bold</strong>, <em>Italics</em>, and a <a href="https://google.com">Link</a>.</p></p>
+<p><h3>Markdown List Test:</h3>
+<ul>
+<li>Simple to learn</li>
+<li>Powerful to use</li>
+<li><code>Code blocks supported</code></li>
+</ul></p>
+</section>
+<box class='otl-box-3-768'><h2><ol>
+<li>Nesting &amp; Custom Style</li>
+</ol></h2>
+<h1 class='otl-h1-1-280'><p>I am a Large Custom Title</p></h1>
+<p><p>I am inside a nested sky-blue box container with high contrast text.</p></p>
+</box>
+<section class='otl-section-4-312'><button class='otl-button-0-224'><p><strong>Click Me</strong> (Library Style)</p></button>
+<button class='otl-button-1-288'><p>Secondary Action</p></button>
+</section>
+<footer class='otl-footer-5-960'><p>Happy Building! 🚀</p></footer>
 </section>
 
     </main>
