@@ -23,20 +23,20 @@ Outline is smart. You can write your content in different ways depending on what
 
 **Styled Elements:**
 ```yaml
-- H2: 
+- H2:
      content: hey
-     style: 
-            background-color: yellow
+     style:
+             background-color: yellow
 ```
 
 **Direct Nesting (The "Quick" Way):**
 ```yaml
 - Home Page:
        - H1: hey
-       - H2: 
-               content: hey
-               style:
-                       background-color: red
+       - H2:
+                content: hey
+                style:
+                        background-color: red
 ```
 
 **Labeled Content (The "Organized" Way):**
@@ -46,8 +46,8 @@ Outline is smart. You can write your content in different ways depending on what
           - h1: hey
           - h2:
                   content: hey
-                  style: 
-                         background-color: red
+                  style:
+                          background-color: red
 ```
 
 **Combined Layout (Styles + Content):**
@@ -60,8 +60,8 @@ Outline is smart. You can write your content in different ways depending on what
           - h1: hey
           - h2:
                   content: hey
-                  style: 
-                         background-color: red
+                  style:
+                          background-color: red
 ```
 
 ## 3. Adding Style
@@ -83,10 +83,10 @@ If you want to make things look fancy, you can add a `style` block. You can chan
 Adding pictures is easy. You can just provide the link, or add styles to it.
 
 ```yaml
-- img: "[https://example.com/photo.jpg](https://example.com/photo.jpg)"
+- img: "https://example.com/photo.jpg"
 
 - img:
-    src: "[https://example.com/photo.jpg](https://example.com/photo.jpg)"
+    src: "https://example.com/photo.jpg"
     style:
       width: 100px
       border-radius: 50%
@@ -159,3 +159,4 @@ You can define a "Dictionary" of colors and sizes at the top of your page. This 
 4. **Live View**: Just save your `.otl` file, and your browser will update automatically!
 
 Happy Building! 🚀
+        `;

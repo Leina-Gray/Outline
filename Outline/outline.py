@@ -2,6 +2,7 @@ import yaml
 import os
 import time
 import re
+import markdown # Added markdown support
 
 def clean_value(val):
     """Removes noise words like 'font', 'color', and commas."""
@@ -9,6 +10,12 @@ def clean_value(val):
     noise = ['font', 'color', ',']
     pattern = re.compile(r'\b(' + '|'.join(noise) + r')\b|[,]', re.IGNORECASE)
     return pattern.sub('', val).strip()
+
+def render_markdown(text):
+    """Converts markdown strings to HTML."""
+    if not isinstance(text, str): return text
+    # We use 'extras' to support things like tables or task lists if needed
+    return markdown.markdown(text, extensions=['extra'])
 
 def process_elements(elements, css_rules_list, global_library=None):
     html_buffer = ""
@@ -20,7 +27,6 @@ def process_elements(elements, css_rules_list, global_library=None):
         tag_raw = list(entry.keys())[0]
         value = entry[tag_raw]
         
-        # Skip theme definition blocks in the final HTML output
         if tag_raw.lower() == 'theme': continue
 
         tag = "section" if tag_raw.lower() == "home page" else tag_raw.lower()
@@ -29,28 +35,28 @@ def process_elements(elements, css_rules_list, global_library=None):
         content_html = ""
         style_data = {}
 
-        # 1. Apply Library Styles first (Global Defaults)
         if tag in global_library:
             style_data.update(global_library[tag])
 
-        # 2. Parse Value based on type
         if isinstance(value, str):
-            content_html = value
+            # Render markdown for simple strings
+            content_html = render_markdown(value)
         elif isinstance(value, list):
             content_html = process_elements(value, css_rules_list, global_library)
         elif isinstance(value, dict):
-            # Check if this section has its own local theme/library
             local_library = global_library
             if 'theme' in value:
                 local_library = {**global_library, **value['theme'].get('library', {}).get('elements', {})}
             
             raw_content = value.get('content') or value.get('children')
-            content_html = process_elements(raw_content, css_rules_list, local_library) if isinstance(raw_content, list) else str(raw_content or "")
+            if isinstance(raw_content, list):
+                content_html = process_elements(raw_content, css_rules_list, local_library)
+            else:
+                # Render markdown for dictionary content
+                content_html = render_markdown(str(raw_content)) if raw_content else ""
             
-            # Merge local styles (Overwrites library defaults)
             style_data.update(value.get('style', {}))
 
-        # 3. Generate CSS and HTML
         if style_data:
             main_styles = []
             for prop, val in style_data.items():
@@ -76,7 +82,6 @@ def compile_outline():
         with open("template.html", "r") as f: template_str = f.read()
         with open("site.otl", "r") as f: data = yaml.safe_load(f)
         
-        # Pre-scan for Theme Elements Library
         global_library = {}
         for item in (data or []):
             for key, val in item.items():
@@ -89,7 +94,7 @@ def compile_outline():
         
         output = template_str.replace("{{ CSS }}", "\n".join(css_rules)).replace("{{ CONTENT }}", body_content)
         with open("index.html", "w") as f: f.write(output)
-        print("Done! Theme and Library applied.")
+        print("Done! Markdown rendered.")
     except Exception as e:
         print(f"Error: {e}")
 
