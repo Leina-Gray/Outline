@@ -3,6 +3,8 @@ import os
 import time
 import re
 import markdown
+import csv
+import io
 
 def clean_value(val):
     """Removes noise words like 'font', 'color', and commas."""
@@ -15,6 +17,38 @@ def render_markdown(text):
     """Converts markdown strings to HTML with UTF-8 support."""
     if not isinstance(text, str): return text
     return markdown.markdown(text, extensions=['extra'])
+
+def render_table(data_str):
+    """Converts CSV/TSV string into an HTML table and strips extra padding."""
+    # Detect delimiter: if tab exists, use TSV, else CSV
+    delimiter = '\t' if '\t' in data_str else ','
+    
+    html = ["<table style='width:100%; border-collapse: collapse;'>"]
+    try:
+        # We use skipinitialspace for CSV, but manual stripping is safer for both
+        reader = csv.reader(io.StringIO(data_str.strip()), delimiter=delimiter)
+        rows = list(reader)
+        if not rows: return ""
+        
+        # Header
+        html.append("<thead><tr>")
+        for cell in rows[0]:
+            # .strip() handles the visual alignment whitespace from the OTL
+            html.append(f"<th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>{cell.strip()}</th>")
+        html.append("</tr></thead>")
+        
+        # Body
+        html.append("<tbody>")
+        for row in rows[1:]:
+            html.append("<tr>")
+            for cell in row:
+                html.append(f"<td style='border: 1px solid #ddd; padding: 8px;'>{cell.strip()}</td>")
+            html.append("</tr>")
+        html.append("</tbody></table>")
+    except Exception as e:
+        return f"<p>Error rendering table: {e}</p>"
+        
+    return "".join(html)
 
 def process_elements(elements, css_rules_list, global_library=None):
     html_buffer = ""
@@ -37,7 +71,10 @@ def process_elements(elements, css_rules_list, global_library=None):
         if tag in global_library:
             style_data.update(global_library[tag])
 
-        if isinstance(value, str):
+        # Feature: Auto Table Rendering
+        if tag == 'table' and isinstance(value, str):
+            content_html = render_table(value)
+        elif isinstance(value, str):
             content_html = render_markdown(value)
         elif isinstance(value, list):
             content_html = process_elements(value, css_rules_list, global_library)
@@ -47,7 +84,10 @@ def process_elements(elements, css_rules_list, global_library=None):
                 local_library = {**global_library, **value['theme'].get('library', {}).get('elements', {})}
             
             raw_content = value.get('content') or value.get('children')
-            if isinstance(raw_content, list):
+            
+            if tag == 'table' and isinstance(raw_content, str):
+                 content_html = render_table(raw_content)
+            elif isinstance(raw_content, list):
                 content_html = process_elements(raw_content, css_rules_list, local_library)
             else:
                 content_html = render_markdown(str(raw_content)) if raw_content else ""
@@ -76,7 +116,6 @@ def process_elements(elements, css_rules_list, global_library=None):
 
 def compile_outline():
     try:
-        # Added encoding="utf-8" to all file operations
         with open("template.html", "r", encoding="utf-8") as f: 
             template_str = f.read()
         with open("site.otl", "r", encoding="utf-8") as f: 
@@ -96,7 +135,7 @@ def compile_outline():
         
         with open("index.html", "w", encoding="utf-8") as f: 
             f.write(output)
-        print("Done! Markdown rendered with UTF-8 support.")
+        print("Done! Table support with visual alignment added.")
     except Exception as e:
         print(f"Error: {e}")
 

@@ -3,13 +3,7 @@
              dictionary:
                     colors:
                           brand: &brand_blue "#0ea5e9"
-                          brand_dark: &brand_dark "#0369a1"
-                          brand_light: &brand_light "#e0f2fe"
-                          danger: &danger_red "#ef4444"
                           bg_page: &bg_page "#f8fafc"
-                    font_sizes:
-                          title: &title_size "50px"
-             
              library:
                      elements:
                           button: 
@@ -17,23 +11,14 @@
                                color: white
                                padding: "12px 24px"
                                border-radius: "8px"
-                               border: "none"
-                               font-weight: "bold"
 
       style:
           background-color: *bg_page
           padding: "40px"
-          # Smart Reach-Inside Styling
-          h1:
-             color: *brand_dark
-          h2:
-             color: *brand_blue
 
       content:
-             - h1: "📝 Welcome to Outline!"
-             - p: |
-                 Outline is a **simple language** that turns your ideas into a website *instantly*. 
-                 You write in a list format, and Outline handles the heavy lifting.
+             - h1: "📊 New Feature: Instant Tables!"
+             - p: "You can now create tables just by typing data separated by commas or tabs."
 
              - section:
                   style:
@@ -43,48 +28,25 @@
                       margin: "20px 0"
                       border: "1px solid #e2e8f0"
                   content:
-                      - h2: "1. The Basics & Markdown"
-                      - p: "This paragraph contains **Bold**, *Italics*, and a [Link](https://google.com)."
-                      - p: |
-                          ### Markdown List Test:
-                          - Simple to learn
-                          - Powerful to use
-                          - `Code blocks supported`
-
-             - box:
-                  style:
-                      background: *brand_light
-                      padding: "30px"
-                      border-left: f"5px solid {*brand_blue}"
-                      display: "block"
-                      border-radius: "0 12px 12px 0"
-                  content:
-                      - h2: "2. Nesting & Custom Style"
-                      - h1:
-                          content: "I am a Large Custom Title"
-                          style:
-                              font size: *title_size
-                              color: *brand_dark
-                      - p: "I am inside a nested sky-blue box container with high contrast text."
+                      - h2: "Visually Aligned CSV"
+                      - p: "Notice how the code below is aligned with spaces for readability."
+                      - table: |
+                          Feature       , Description                            , Status
+                          Tables         , Auto-converts CSV text        , ✨ Live
+                          Markdown  , Bold and Italic support        , ✅ Works
+                          Emojis         , UTF-8 support fixed              , 🚀 Done
 
              - section:
                   style:
-                      display: "flex"
-                      gap: "20px"
-                      margin-top: "20px"
+                      margin-top: "40px"
                   content:
-                      - button: "**Click Me** (Library Style)"
-                      - button:
-                          content: "Secondary Action"
-                          style:
-                              background: "white"
-                              color: *brand_blue
-                              border: f"2px solid {*brand_blue}"
+                      - h2: "TSV (Tabs) Support"
+                      - p: "This works great if you copy-paste from Excel or Google Sheets!"
+                      - table: |
+                          Name	        Role	        Department
+                          John Doe	Developer	Product
+                          Jane Smith	Designer	Creative
+                          Bob Brown	Manager	        Operations
 
              - footer:
-                  style:
-                      margin-top: "50px"
-                      border-top: "1px solid #e2e8f0"
-                      padding-top: "20px"
-                      color: "#64748b"
-                  content: "Happy Building! 🚀"
+                  content: "Tables styled automatically! 🚀"

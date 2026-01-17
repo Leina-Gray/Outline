@@ -11,43 +11,58 @@ To add text, just type the tag name (like `h1` for big headers or `p` for paragr
 - p: This is a normal paragraph.
 ```
 
-## 2. Flexible Writing
+## 2. Markdown Support
 
-Outline is smart. You can write your content in different ways depending on what feels natural. Here are the common patterns you can use:
+You can use standard Markdown syntax directly inside any tag. This allows for rich text formatting without complex HTML.
+
+```yaml
+- h1: This is **Bold** and this is *Italic*
+- p: |
+    ### You can even do:
+    - Lists
+    - [Links](https://google.com)
+    - `Code snippets`
+    - > Blockquotes
+```
+
+## 3. Instant Tables (New!)
+
+Outline now supports creating tables using simple CSV (commas) or TSV (tabs) data. You can even use spaces in your code to align columns visually so it stays organized while you work.
+
+**CSV Example:**
+
+```yaml
+- table: |
+    Item,       Quantity,  Status
+    Apples,     10,        ✨ Fresh
+    Bananas,    5,         🍌 Ripe
+```
+
+**TSV (Tabs) Example:**
+*Great for copy-pasting from Excel or Google Sheets!*
+
+```yaml
+- table: |
+    Name	Role	Department
+    John Doe	Developer	Product
+    Jane Smith	Designer	Creative
+```
+
+## 4. Flexible Writing
+
+Outline is smart. You can write your content in different ways depending on what feels natural.
 
 **Simple Text:**
 ```yaml
 - H1: hey
-- P: hey
 ```
 
 **Styled Elements:**
 ```yaml
-- H2:
+- H2: 
      content: hey
-     style:
-             background-color: yellow
-```
-
-**Direct Nesting (The "Quick" Way):**
-```yaml
-- Home Page:
-       - H1: hey
-       - H2:
-                content: hey
-                style:
-                        background-color: red
-```
-
-**Labeled Content (The "Organized" Way):**
-```yaml
-- Home Page:
-     content:
-          - h1: hey
-          - h2:
-                  content: hey
-                  style:
-                          background-color: red
+     style: 
+            background-color: yellow
 ```
 
 **Combined Layout (Styles + Content):**
@@ -57,14 +72,10 @@ Outline is smart. You can write your content in different ways depending on what
           background-color: "#f0f0f0"
           padding: "20px"
      content:
-          - h1: hey
-          - h2:
-                  content: hey
-                  style:
-                          background-color: red
+          - h1: hello **world**
 ```
 
-## 3. Adding Style
+## 5. Adding Style
 
 If you want to make things look fancy, you can add a `style` block. You can change colors, sizes, and spacing.
 
@@ -76,25 +87,9 @@ If you want to make things look fancy, you can add a `style` block. You can chan
       font size: 50px
 ```
 
-*Note: You can write `font size` with a space; Outline will fix it for you!*
+## 6. Boxes & Nesting
 
-## 4. Images
-
-Adding pictures is easy. You can just provide the link, or add styles to it.
-
-```yaml
-- img: "https://example.com/photo.jpg"
-
-- img:
-    src: "https://example.com/photo.jpg"
-    style:
-      width: 100px
-      border-radius: 50%
-```
-
-## 5. Boxes inside Boxes (Nesting)
-
-You can group elements together inside a "container" (like a `box`, `div`, or a `section`). This is great for making cards or sidebars.
+You can group elements together inside a "container" (like a `box` or `section`).
 
 ```yaml
 - box:
@@ -106,28 +101,23 @@ You can group elements together inside a "container" (like a `box`, `div`, or a 
       - p: I am here too.
 ```
 
-## 6. Smart Reach-Inside Styling (Intermediate)
+## 7. Smart Reach-Inside Styling (Intermediate)
 
-You can style elements inside a box from the parent. This is much faster than styling every single item one by one.
+Style elements inside a box from the parent.
 
 ```yaml
 - Home Page:
      style:
          background-color: "#f0f0f0"
-         padding: "40px"
          h1:
             color: "#ff4400"
-            text-transform: uppercase
-         h2:
-            color: "blue"
      content:
-          - h1: This header is red because of the parent style!
-          - h2: This subheader is blue!
+          - h1: This header is red!
 ```
 
-## 7. Global Themes & Library (Advanced)
+## 8. Global Themes & Library (Advanced)
 
-You can define a "Dictionary" of colors and sizes at the top of your page. This creates a "Library" where your elements (like buttons) automatically know how to look using reusable tokens.
+Define a "Dictionary" of colors and sizes. This creates a "Library" where your elements automatically inherit styles.
 
 ```yaml
 - Home Page:
@@ -135,28 +125,22 @@ You can define a "Dictionary" of colors and sizes at the top of your page. This 
              dictionary:
                     colors:
                           primary: &primary "#8b5cf6"
-                          black: &black "#1a1a1a"
-                    font_sizes:
-                          base: &base "1rem"
-             
              library:
                      elements:
                           button: 
                                background: *primary
                                color: white
-                               padding: "10px 20px"
 
       content:
-             - h1: My Themed Site
-             - button: Click Me
+             - button: **Click Me**
 ```
 
-## 💡 Quick Tips for Beginners
+## 💡 Quick Tips
 
 1. **The Dash `-`**: Always start a new element with a dash and a space.
-2. **Indentation**: Use **two spaces** to show that something is "inside" another element.
-3. **Colors**: You can use names like `red` or codes like `#000000`.
-4. **Live View**: Just save your `.otl` file, and your browser will update automatically!
+2. **Indentation**: Use **two spaces** for nesting.
+3. **Markdown**: Use the pipe `|` for multi-line content.
+4. **Table Alignment**: Don't worry about extra spaces in your table code; Outline cleans them up for the final site!
 
 Happy Building! 🚀
-        `;
+        `
