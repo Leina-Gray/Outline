@@ -72,6 +72,35 @@ def generate_css_block(selector, styles):
     css_block += "}"
     return css_block
 
+def detect_list_marker(items):
+    """
+    Advanced detection for:
+    1. Unicode symbols (◦, •, →, ✓, ❉, ●, ○, ■)
+    2. Nested numbering (1.1., 1.2.)
+    3. Prefixes (Slide 1., Task A.)
+    4. Suffixes (1), 2), a))
+    """
+    if not items or not isinstance(items[0], str): return None, None
+    
+    first_item = items[0].strip()
+    
+    # Pattern 1: Alphanumeric prefix/suffix (Slide 1., 1.1., 1), (a))
+    pattern_complex = r'^([A-Za-z0-9\s.()-]+[.)]\s+)'
+    # Pattern 2: Pure Unicode symbols (non-alphanumeric, non-whitespace)
+    pattern_unicode = r'^([^\w\s\d]\s*)'
+    
+    match = re.match(pattern_complex, first_item)
+    if match:
+        marker = match.group(1)
+        return marker, lambda s: re.match(pattern_complex, s).group(1) if re.match(pattern_complex, s) else ""
+        
+    match = re.match(pattern_unicode, first_item)
+    if match:
+        marker = match.group(1)
+        return marker, lambda s: re.match(pattern_unicode, s).group(1) if re.match(pattern_unicode, s) else ""
+        
+    return None, None
+
 def generate_css_for_library(library, typography=None):
     rules = []
     if typography:
@@ -83,11 +112,9 @@ def generate_css_for_library(library, typography=None):
         elements = library.get('elements', {})
         for tag, styles in elements.items():
             if isinstance(styles, dict):
-                # Separate standard styles from states in library
                 base_styles = {k:v for k,v in styles.items() if k != 'states'}
                 rules.append(generate_css_block(tag, base_styles))
                 
-                # Handle states in library
                 if 'states' in styles:
                     for state_name, state_styles in styles['states'].items():
                         pseudo = STATE_MAPPING.get(state_name.lower())
@@ -116,7 +143,47 @@ def process_elements(elements, css_rules_list, global_library=None):
             style_data.update({k:v for k,v in lib_style.items() if k != 'states'})
             if 'states' in lib_style: states_data.update(lib_style['states'])
 
-        if tag == 'table' and isinstance(value, str):
+        # Smart List Logic with Spacing Fix
+        if tag == 'list' and isinstance(value, dict) and 'content' in value:
+            items = value['content']
+            marker_str, extractor = detect_list_marker(items)
+            
+            if marker_str:
+                # Reset standard UL padding, use relative positioning for alignment
+                style_data.update({'list-style': 'none', 'padding-left': '0'})
+                list_html = []
+                for idx, item_text in enumerate(items):
+                    found_marker = extractor(item_text) if extractor else ""
+                    clean_text = item_text[len(found_marker):] if found_marker else item_text
+                    item_id = f"{el_id}-item-{idx}"
+                    
+                    # Calculate indent based on marker length (approx 0.7em per char)
+                    indent_size = max(1.5, len(found_marker.strip()) * 0.7)
+                    
+                    marker_css = {
+                        'content': f'"{found_marker.strip()}"',
+                        'position': 'absolute',
+                        'left': '0',
+                        'font-weight': 'bold',
+                        'color': 'inherit'
+                    }
+                    # Ensure the list item has room for the absolute marker
+                    item_css = {
+                        'position': 'relative',
+                        'padding-left': f'{indent_size}em',
+                        'margin-bottom': '0.5em',
+                        'list-style': 'none'
+                    }
+                    css_rules_list.append(generate_css_block(f".{item_id}", item_css))
+                    css_rules_list.append(generate_css_block(f".{item_id}::before", marker_css))
+                    list_html.append(f"<li class='{item_id}'>{render_markdown(clean_text)}</li>")
+                content_html = "".join(list_html)
+                tag = "ul" 
+            else:
+                content_html = "".join([f"<li>{render_markdown(it)}</li>" for it in items])
+                tag = "ul"
+
+        elif tag == 'table' and isinstance(value, str):
             content_html = render_table(value)
         elif isinstance(value, str):
             content_html = render_markdown(value)
@@ -134,11 +201,9 @@ def process_elements(elements, css_rules_list, global_library=None):
             style_data.update(value.get('style', {}))
             states_data.update(value.get('states', {}))
 
-        # Generate CSS for this specific element
         if style_data:
             css_rules_list.append(generate_css_block(f".{el_id}", style_data))
         
-        # Generate CSS for states
         for state_name, state_styles in states_data.items():
             pseudo = STATE_MAPPING.get(state_name.lower())
             if pseudo:
@@ -150,6 +215,7 @@ def process_elements(elements, css_rules_list, global_library=None):
 def compile_outline():
     try:
         with open("template.html", "r", encoding="utf-8") as f: template_str = f.read()
+        if not os.path.exists("site.otl"): return
         with open("site.otl", "r", encoding="utf-8") as f: data = yaml.safe_load(f) or []
         
         css_rules = []
@@ -188,7 +254,7 @@ def compile_outline():
         body_content = process_elements(data, css_rules, global_library)
         output = template_str.replace("{{ CSS }}", "\n".join(css_rules)).replace("{{ CONTENT }}", body_content)
         with open("index.html", "w", encoding="utf-8") as f: f.write(output)
-        print("Done! Interactive states and themes compiled.")
+        print("Done! Smart lists with overlap fixes compiled.")
     except Exception as e:
         print(f"Error: {e}")
 

@@ -1,89 +1,40 @@
-- Themes:
-    Brightness:
-      - Dark:
-          dictionary:
-            colors:
-              bg: "#1a1a1a"
-              text: "#ffffff"
-              input_bg: "#2a2a2a"
-              input_border: "#444444"
-          library:
-            elements:
-              html:
-                background: "#1a1a1a"
-              body:
-                background: "#1a1a1a"
-                margin: "0"
-                min-height: "100vh"
-                width: "100%"
-              section:
-                background: "#1a1a1a"
-                color: "#ffffff"
-              button:
-                background: "#444"
-                color: "#fff"
-                states:
-                  on-hover:
-                    background: "#666"
-              input:
-                background: "#2a2a2a"
-                color: "#ffffff"
-                border-color: "#444444"
-
-    Device Size:
-      - "Phone":
-          typography:
-            h1:
-              font-size: "1.8rem"
-      - "Tablet (min-width: 700px)":
-          typography:
-            h1:
-              font-size: "3rem"
-
 - Home Page:
-    theme:
-      dictionary:
-        colors:
-          brand: &brand_blue "#3b82f6"
-          hover: &brand_dark "#2563eb"
-      library:
-        elements:
-          body:
-            margin: "0"
-            min-height: "100vh"
-            width: "100%"
-          button:
-            background: *brand_blue
-            color: white
-            padding: "12px 24px"
-            border: none
-            border-radius: "8px"
-            cursor: pointer
-            transition: "0.2s"
-            states:
-              on-hover:
-                background: *brand_dark
-                transform: "translateY(-2px)"
-              on-pressed:
-                transform: "translateY(0px)"
-                opacity: "0.8"
-
+    style:
+      font-family: sans-serif
+      padding: 40px
+      background: "#f9f9f9"
     content:
-      - h1: "Interactive States"
-      - p: "Hover over the button below to see the state change!"
-      - button: "Click Me"
-      - section:
-          style:
-            margin-top: "20px"
+      - h1: "Smart List Detection Gallery"
+      
+      - h2: "Unicode Symbols"
+      - list:
           content:
-            - h2: "Form States Example"
-            - input:
-                style:
-                  padding: "10px"
-                  border: "2px solid #ddd"
-                  border-radius: "5px"
-                  outline: "none"
-                states:
-                  on-focus:
-                    border-color: *brand_blue
-                    box-shadow: "0 0 8px rgba(59, 130, 246, 0.5)"
+            - ◦ Hollow circle bullet
+            - • Solid bullet
+            - → Arrow bullet
+            - ✓ Success bullet
+            - ❉ Decorative bullet
+
+      - h2: "Prefixes & Nested Numbers"
+      - list:
+          content:
+            - 1.1. Nested point A
+            - 1.2. Nested point B
+            - 1.3. Nested point C
+
+      - list:
+          content:
+            - Slide 1. Introduction to Outline
+            - Slide 2. Designing with Lists
+            - Slide 3. Summary of Features
+
+      - h2: "Suffixes & Parentheses"
+      - list:
+          content:
+            - 1) Option with parenthesis
+            - 2) Another option
+            
+      - list:
+          content:
+            - a. Point style with dot
+            - b. Point style with dot

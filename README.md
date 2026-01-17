@@ -34,7 +34,32 @@ Use a `style` block to change colors, sizes, and spacing.
       font-size: 50px
 ```
 
-### 4. Instant Tables
+### 4. Instant Tables & Lists
+Outline automatically detects your data format and list markers.
+
+**Smart Lists (New!):**
+Just include your preferred symbol or numbering at the start of the text. Outline will detect it and format it perfectly, handling the indentation for you.
+```yaml
+# Unicode / Symbols
+- list:
+    content:
+      - ✓ Task completed
+      - → Next step
+      - ❉ Special note
+
+# Prefixes & Nested Numbering
+- list:
+    content:
+      - 1.1. First sub-point
+      - 1.2. Second sub-point
+      
+- list:
+    content:
+      - Slide 1. Introduction
+      - Slide 2. Features
+```
+
+**Instant Tables:**
 Create tables using simple CSV (commas) or TSV (tabs).
 ```yaml
 - table: |
@@ -151,9 +176,8 @@ Support **Multi-Themes** so your site changes based on device or "Dark Mode" set
 1. **The Dash `-`**: Always start a new element with a dash and a space.
 2. **Indentation**: Use **two spaces** for nesting.
 3. **Markdown**: Use the pipe `|` for multi-line content.
-4. **Table Alignment**: Don't worry about extra spaces in your table code; Outline cleans them up for the final site!
-5. **Theme Quotes**: If a theme name has a colon or parentheses, wrap it in "quotes".
-6. **Transitions**: Add `transition: 0.2s` to your style to make state changes look smooth!
+4. **Theme Quotes**: If a theme name has a colon or parentheses, wrap it in "quotes".
+5. **Transitions**: Add `transition: 0.2s` to your style to make state changes look smooth!
 
 Happy Building! 🚀
         `
