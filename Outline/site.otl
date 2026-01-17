@@ -1,52 +1,56 @@
+- Themes:
+    Brightness:
+      - Dark:
+          dictionary:
+            colors:
+              bg: &dark_bg "#1a1a1a"
+              text: &dark_text "#ffffff"
+              table_header: &table_header "#333333"
+          typography:
+            p:
+              color: *dark_text
+          library:
+            elements:
+              section:
+                background: *dark_bg
+                color: *dark_text
+              th:
+                background: *table_header
+                color: *dark_text
+                border-color: "#444"
+              td:
+                border-color: "#444"
+
+    Device Size:
+      - "Phone":
+          typography:
+            h1:
+              font-size: "1.8rem"
+      - "Tablet (min-width: 700px)":
+          typography:
+            h1:
+              font-size: "3rem"
+
 - Home Page:
       theme:
              dictionary:
                     colors:
-                          brand: &brand_blue "#0ea5e9"
-                          bg_page: &bg_page "#f8fafc"
+                          brand: &brand_blue "#3b82f6"
+             typography:
+                    h1:
+                      color: *brand_blue
+                      font-size: "4rem"
              library:
                      elements:
-                          button: 
-                               background: *brand_blue
-                               color: white
-                               padding: "12px 24px"
-                               border-radius: "8px"
-
-      style:
-          background-color: *bg_page
-          padding: "40px"
+                          section:
+                            padding: "50px"
+                            transition: "0.3s"
 
       content:
-             - h1: "📊 New Feature: Instant Tables!"
-             - p: "You can now create tables just by typing data separated by commas or tabs."
-
-             - section:
-                  style:
-                      background: "white"
-                      padding: "20px"
-                      border-radius: "15px"
-                      margin: "20px 0"
-                      border: "1px solid #e2e8f0"
-                  content:
-                      - h2: "Visually Aligned CSV"
-                      - p: "Notice how the code below is aligned with spaces for readability."
-                      - table: |
-                          Feature       , Description                            , Status
-                          Tables         , Auto-converts CSV text        , ✨ Live
-                          Markdown  , Bold and Italic support        , ✅ Works
-                          Emojis         , UTF-8 support fixed              , 🚀 Done
-
-             - section:
-                  style:
-                      margin-top: "40px"
-                  content:
-                      - h2: "TSV (Tabs) Support"
-                      - p: "This works great if you copy-paste from Excel or Google Sheets!"
-                      - table: |
-                          Name	        Role	        Department
-                          John Doe	Developer	Product
-                          Jane Smith	Designer	Creative
-                          Bob Brown	Manager	        Operations
-
-             - footer:
-                  content: "Tables styled automatically! 🚀"
+             - h1: "Adaptive Themes"
+             - p: "Try resizing your browser or switching to Dark Mode!"
+             - table: |
+                  Mode, Effect
+                  Dark Mode, Background turns dark
+                  Phone Size, Title gets smaller
+                  Tablet Size, Title gets bigger

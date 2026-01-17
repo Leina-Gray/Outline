@@ -15,35 +15,52 @@
         }
         
         /* This is where Python will inject the custom styles */
-        .otl-section-2-0 {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  margin: 20px 0;
-  border: 1px solid #e2e8f0;
+        h1 {
+  color: #3b82f6;
+  font-size: 4rem;
 }
-.otl-section-3-920 {
-  margin-top: 40px;
+section {
+  padding: 50px;
+  transition: 0.3s;
 }
-.otl-section-0-680 {
-  background-color: #f8fafc;
-  padding: 40px;
+@media (prefers-color-scheme: dark) {
+p {
+  color: #ffffff;
+}
+section {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+th {
+  background: #333333;
+  color: #ffffff;
+  border-color: #444;
+}
+td {
+  border-color: #444;
+}
+}
+@media (max-width: 599px) {
+h1 {
+  font-size: 1.8rem;
+}
+}
+@media min-width: 700px {
+h1 {
+  font-size: 3rem;
+}
+}
+.otl-section-1-896 {
+  padding: 50px;
+  transition: 0.3s;
 }
     </style>
 </head>
 <body>
     <main class="container">
-        <section class='otl-section-0-680'><h1><p>📊 New Feature: Instant Tables!</p></h1>
-<p><p>You can now create tables just by typing data separated by commas or tabs.</p></p>
-<section class='otl-section-2-0'><h2><p>Visually Aligned CSV</p></h2>
-<p><p>Notice how the code below is aligned with spaces for readability.</p></p>
-<table><table style='width:100%; border-collapse: collapse;'><thead><tr><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Feature</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Description</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Status</th></tr></thead><tbody><tr><td style='border: 1px solid #ddd; padding: 8px;'>Tables</td><td style='border: 1px solid #ddd; padding: 8px;'>Auto-converts CSV text</td><td style='border: 1px solid #ddd; padding: 8px;'>✨ Live</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Markdown</td><td style='border: 1px solid #ddd; padding: 8px;'>Bold and Italic support</td><td style='border: 1px solid #ddd; padding: 8px;'>✅ Works</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Emojis</td><td style='border: 1px solid #ddd; padding: 8px;'>UTF-8 support fixed</td><td style='border: 1px solid #ddd; padding: 8px;'>🚀 Done</td></tr></tbody></table></table>
-</section>
-<section class='otl-section-3-920'><h2><p>TSV (Tabs) Support</p></h2>
-<p><p>This works great if you copy-paste from Excel or Google Sheets!</p></p>
-<table><table style='width:100%; border-collapse: collapse;'><thead><tr><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Name</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Role</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Department</th></tr></thead><tbody><tr><td style='border: 1px solid #ddd; padding: 8px;'>John Doe</td><td style='border: 1px solid #ddd; padding: 8px;'>Developer</td><td style='border: 1px solid #ddd; padding: 8px;'>Product</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Jane Smith</td><td style='border: 1px solid #ddd; padding: 8px;'>Designer</td><td style='border: 1px solid #ddd; padding: 8px;'>Creative</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Bob Brown</td><td style='border: 1px solid #ddd; padding: 8px;'>Manager</td><td style='border: 1px solid #ddd; padding: 8px;'>Operations</td></tr></tbody></table></table>
-</section>
-<footer><p>Tables styled automatically! 🚀</p></footer>
+        <section class='otl-section-1-896'><h1><p>Adaptive Themes</p></h1>
+<p><p>Try resizing your browser or switching to Dark Mode!</p></p>
+<table><table style='width:100%; border-collapse: collapse;'><thead><tr><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Mode</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Effect</th></tr></thead><tbody><tr><td style='border: 1px solid #ddd; padding: 8px;'>Dark Mode</td><td style='border: 1px solid #ddd; padding: 8px;'>Background turns dark</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Phone Size</td><td style='border: 1px solid #ddd; padding: 8px;'>Title gets smaller</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Tablet Size</td><td style='border: 1px solid #ddd; padding: 8px;'>Title gets bigger</td></tr></tbody></table></table>
 </section>
 
     </main>

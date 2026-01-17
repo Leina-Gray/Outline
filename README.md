@@ -135,12 +135,49 @@ Define a "Dictionary" of colors and sizes. This creates a "Library" where your e
              - button: **Click Me**
 ```
 
+## 9. Smart Adaptive Themes (New!)
+
+Outline now supports **Multi-Themes**. This allows your website to automatically change based on the user's device or settings (like Dark Mode).
+
+You define these in a `Themes` block. Use quotes for names with parentheses.
+
+```yaml
+- Themes:
+    Brightness:
+      - Dark:
+          dictionary:
+            colors:
+              bg: "#1a1a1a"
+              text: "#ffffff"
+          library:
+            elements:
+              section:
+                background: "#1a1a1a"
+                color: "#ffffff"
+
+    Device Size:
+      - "Phone":
+          typography:
+            h1:
+              font-size: "1.8rem"
+      - "Tablet (min-width: 700px)":
+          typography:
+            h1:
+              font-size: "3rem"
+```
+
+**Available Presets:**
+- **Brightness:** `Light`, `Dark`
+- **Device Size:** `Phone`, `Tablet`, `Laptop`, `Desktop`
+- **Orientation:** `Portrait`, `Landscape`
+
 ## 💡 Quick Tips
 
 1. **The Dash `-`**: Always start a new element with a dash and a space.
 2. **Indentation**: Use **two spaces** for nesting.
 3. **Markdown**: Use the pipe `|` for multi-line content.
 4. **Table Alignment**: Don't worry about extra spaces in your table code; Outline cleans them up for the final site!
+5. **Theme Quotes**: If a theme name has a colon or parentheses, wrap it in "quotes" to keep the computer happy.
 
 Happy Building! 🚀
         `
