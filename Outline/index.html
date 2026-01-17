@@ -15,52 +15,95 @@
         }
         
         /* This is where Python will inject the custom styles */
-        h1 {
-  color: #3b82f6;
-  font-size: 4rem;
+        body {
+  margin: 0;
+  min-height: 100vh;
+  width: 100%;
 }
-section {
-  padding: 50px;
-  transition: 0.3s;
+button {
+  background: #3b82f6;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+button:active {
+  transform: translateY(0px);
+  opacity: 0.8;
 }
 @media (prefers-color-scheme: dark) {
-p {
-  color: #ffffff;
+html {
+  background: #1a1a1a;
+}
+body {
+  background: #1a1a1a;
+  margin: 0;
+  min-height: 100vh;
+  width: 100%;
 }
 section {
   background: #1a1a1a;
   color: #ffffff;
 }
-th {
-  background: #333333;
+button {
+  background: #444;
+  color: #fff;
+}
+button:hover {
+  background: #666;
+}
+input {
+  background: #2a2a2a;
   color: #ffffff;
-  border-color: #444;
-}
-td {
-  border-color: #444;
+  border-color: #444444;
 }
 }
-@media (max-width: 599px) {
-h1 {
-  font-size: 1.8rem;
+.otl-button-2-432 {
+  background: #3b82f6;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
 }
+.otl-button-2-432:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
 }
-@media min-width: 700px {
-h1 {
-  font-size: 3rem;
+.otl-button-2-432:active {
+  transform: translateY(0px);
+  opacity: 0.8;
 }
+.otl-input-1-952 {
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  outline: none;
 }
-.otl-section-1-896 {
-  padding: 50px;
-  transition: 0.3s;
+.otl-input-1-952:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59 130 246 0.5);
+}
+.otl-section-3-216 {
+  margin-top: 20px;
 }
     </style>
 </head>
 <body>
     <main class="container">
-        <section class='otl-section-1-896'><h1><p>Adaptive Themes</p></h1>
-<p><p>Try resizing your browser or switching to Dark Mode!</p></p>
-<table><table style='width:100%; border-collapse: collapse;'><thead><tr><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Mode</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left; background: #f4f4f4;'>Effect</th></tr></thead><tbody><tr><td style='border: 1px solid #ddd; padding: 8px;'>Dark Mode</td><td style='border: 1px solid #ddd; padding: 8px;'>Background turns dark</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Phone Size</td><td style='border: 1px solid #ddd; padding: 8px;'>Title gets smaller</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Tablet Size</td><td style='border: 1px solid #ddd; padding: 8px;'>Title gets bigger</td></tr></tbody></table></table>
+        <section class='otl-section-1-472'><h1 class='otl-h1-0-344'><p>Interactive States</p></h1>
+<p class='otl-p-1-32'><p>Hover over the button below to see the state change!</p></p>
+<button class='otl-button-2-432'><p>Click Me</p></button>
+<section class='otl-section-3-216'><h2 class='otl-h2-0-200'><p>Form States Example</p></h2>
+<input class='otl-input-1-952'></input>
+</section>
 </section>
 
     </main>

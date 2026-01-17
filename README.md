@@ -2,19 +2,19 @@
 
 Outline is a simple language that turns your ideas into a website instantly. You write in a list format, and Outline handles the heavy lifting of building the code.
 
-## 1. The Basics
+---
 
+## 🟢 Beginner: Getting Started
+
+### 1. The Basics
 To add text, just type the tag name (like `h1` for big headers or `p` for paragraphs) followed by your text.
-
 ```yaml
 - h1: This is a big title
 - p: This is a normal paragraph.
 ```
 
-## 2. Markdown Support
-
-You can use standard Markdown syntax directly inside any tag. This allows for rich text formatting without complex HTML.
-
+### 2. Markdown Support
+You can use standard Markdown syntax directly inside any tag for rich formatting.
 ```yaml
 - h1: This is **Bold** and this is *Italic*
 - p: |
@@ -22,15 +22,20 @@ You can use standard Markdown syntax directly inside any tag. This allows for ri
     - Lists
     - [Links](https://google.com)
     - `Code snippets`
-    - > Blockquotes
 ```
 
-## 3. Instant Tables (New!)
+### 3. Adding Style
+Use a `style` block to change colors, sizes, and spacing.
+```yaml
+- h1:
+    content: I am an orange title
+    style:
+      color: "#ff4400"
+      font-size: 50px
+```
 
-Outline now supports creating tables using simple CSV (commas) or TSV (tabs) data. You can even use spaces in your code to align columns visually so it stays organized while you work.
-
-**CSV Example:**
-
+### 4. Instant Tables
+Create tables using simple CSV (commas) or TSV (tabs).
 ```yaml
 - table: |
     Item,       Quantity,  Status
@@ -38,59 +43,12 @@ Outline now supports creating tables using simple CSV (commas) or TSV (tabs) dat
     Bananas,    5,         🍌 Ripe
 ```
 
-**TSV (Tabs) Example:**
-*Great for copy-pasting from Excel or Google Sheets!*
+---
 
-```yaml
-- table: |
-    Name	Role	Department
-    John Doe	Developer	Product
-    Jane Smith	Designer	Creative
-```
+## 🟡 Intermediate: Layouts & Interaction
 
-## 4. Flexible Writing
-
-Outline is smart. You can write your content in different ways depending on what feels natural.
-
-**Simple Text:**
-```yaml
-- H1: hey
-```
-
-**Styled Elements:**
-```yaml
-- H2: 
-     content: hey
-     style: 
-            background-color: yellow
-```
-
-**Combined Layout (Styles + Content):**
-```yaml
-- Home Page:
-     style:
-          background-color: "#f0f0f0"
-          padding: "20px"
-     content:
-          - h1: hello **world**
-```
-
-## 5. Adding Style
-
-If you want to make things look fancy, you can add a `style` block. You can change colors, sizes, and spacing.
-
-```yaml
-- h1:
-    content: I am a orange title
-    style:
-      color: "#ff4400"
-      font size: 50px
-```
-
-## 6. Boxes & Nesting
-
-You can group elements together inside a "container" (like a `box` or `section`).
-
+### 5. Boxes & Nesting
+Group elements together inside a "container" (like a `box` or `section`).
 ```yaml
 - box:
     style:
@@ -101,10 +59,26 @@ You can group elements together inside a "container" (like a `box` or `section`)
       - p: I am here too.
 ```
 
-## 7. Smart Reach-Inside Styling (Intermediate)
+### 6. Flexible Writing Styles
+You can write your content in different ways depending on what feels natural:
+```yaml
+# Styled Elements:
+- H2: 
+     content: hey
+     style: 
+            background-color: yellow
 
-Style elements inside a box from the parent.
+# Combined Layout (Styles + Content):
+- Home Page:
+     style:
+          background-color: "#f0f0f0"
+          padding: "20px"
+     content:
+          - h1: hello **world**
+```
 
+### 7. Reach-Inside Styling
+Style elements inside a box directly from the parent container.
 ```yaml
 - Home Page:
      style:
@@ -115,10 +89,25 @@ Style elements inside a box from the parent.
           - h1: This header is red!
 ```
 
-## 8. Global Themes & Library (Advanced)
+### 8. Interactive States
+Define how an element looks when a user interacts with it using the `states` property.
+```yaml
+- button:
+    content: Click here
+    style: 
+          background-color: blue
+    states:
+          on-hover:
+                 background-color: darkblue
+```
+**Available States:** `on-hover`, `on-pressed`, `on-focus`, `on-disabled`, `on-success`, `on-error`.
 
-Define a "Dictionary" of colors and sizes. This creates a "Library" where your elements automatically inherit styles.
+---
 
+## 🔴 Advanced: Design Systems
+
+### 9. Global Themes & Library
+Define a "Dictionary" of colors to create a "Library" where elements automatically inherit styles.
 ```yaml
 - Home Page:
       theme:
@@ -130,17 +119,12 @@ Define a "Dictionary" of colors and sizes. This creates a "Library" where your e
                           button: 
                                background: *primary
                                color: white
-
       content:
              - button: **Click Me**
 ```
 
-## 9. Smart Adaptive Themes (New!)
-
-Outline now supports **Multi-Themes**. This allows your website to automatically change based on the user's device or settings (like Dark Mode).
-
-You define these in a `Themes` block. Use quotes for names with parentheses.
-
+### 10. Smart Adaptive Themes
+Support **Multi-Themes** so your site changes based on device or "Dark Mode" settings.
 ```yaml
 - Themes:
     Brightness:
@@ -148,7 +132,6 @@ You define these in a `Themes` block. Use quotes for names with parentheses.
           dictionary:
             colors:
               bg: "#1a1a1a"
-              text: "#ffffff"
           library:
             elements:
               section:
@@ -158,18 +141,10 @@ You define these in a `Themes` block. Use quotes for names with parentheses.
     Device Size:
       - "Phone":
           typography:
-            h1:
-              font-size: "1.8rem"
-      - "Tablet (min-width: 700px)":
-          typography:
-            h1:
-              font-size: "3rem"
+            h1: { font-size: "1.8rem" }
 ```
 
-**Available Presets:**
-- **Brightness:** `Light`, `Dark`
-- **Device Size:** `Phone`, `Tablet`, `Laptop`, `Desktop`
-- **Orientation:** `Portrait`, `Landscape`
+---
 
 ## 💡 Quick Tips
 
@@ -177,7 +152,8 @@ You define these in a `Themes` block. Use quotes for names with parentheses.
 2. **Indentation**: Use **two spaces** for nesting.
 3. **Markdown**: Use the pipe `|` for multi-line content.
 4. **Table Alignment**: Don't worry about extra spaces in your table code; Outline cleans them up for the final site!
-5. **Theme Quotes**: If a theme name has a colon or parentheses, wrap it in "quotes" to keep the computer happy.
+5. **Theme Quotes**: If a theme name has a colon or parentheses, wrap it in "quotes".
+6. **Transitions**: Add `transition: 0.2s` to your style to make state changes look smooth!
 
 Happy Building! 🚀
         `
